@@ -914,16 +914,9 @@ function! s:SelectBuffer(...)
                     call s:Close()
                 endif
 
-                " Was the tab found?
-                if tabNbr != 0
-                    " Yes, the buffer is located in a tab. Go to that tab number.
-                    execute tabNbr . "tabnext"
-                else
-                    "Nope, the buffer is not in a tab. Simply switch to that
-                    "buffer.
-                    let _bufName = expand("#"._bufNbr.":p")
-                    execute _bufName ? "drop ".escape(_bufName, " ") : "buffer "._bufNbr
-                endif
+		" If selecting in current window, always open here
+		let _bufName = expand("#"._bufNbr.":p")
+		execute _bufName ? "drop ".escape(_bufName, " ") : "buffer "._bufNbr
             endif
 
             " Switch to the selected buffer.
